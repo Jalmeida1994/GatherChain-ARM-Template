@@ -51,10 +51,10 @@
             "value": "Standard_DS1_v2"
         },
         "adminUsername": {
-            "value": "jalmeida"
+            "value": "adminUsername"
         },
         "adminPassword": {
-            "value": "Jalmeida1994"
+            "value": "adminPassword2020"
         }
     }
 }
