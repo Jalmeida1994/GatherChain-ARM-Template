@@ -9,12 +9,14 @@
 apt-get update
 
 #	Install tools
-apt-get install -y \
+apt install -y \
     git
     apt-transport-https \
     ca-certificates \
     curl \
-    software-properties-common
+    software-properties-common \
+    net-tools \
+    jq
 
 #	Add Docker's official GPG key
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - 
@@ -24,17 +26,18 @@ add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 
 #	Update package index (again)
-apt-get update
+apt update
 
 #	Install latest version of Docker
-apt-get install -y docker-ce docker-ce-cli containerd.io
+apt install -y docker-ce docker-ce-cli containerd.io
+
+#   Install Golang
+add-apt-repository ppa:longsleep/golang-backports -y
+apt update -y
+apt install -y golang-go
 
 #	Upgrades all packages
 apt-get dist-upgrade -y
-
-#	Install net-tools and jq
-apt install -y net-tools
-apt install -y jq
 
 #   Creates the directory to store the project
 mkdir -p project/bloc-server
