@@ -41,3 +41,9 @@ mkdir -p project/bloc-server
 
 #   Clones the project blockchain repository to the created directory
 git clone https://github.com/Jalmeida1994/GatherChain-Server.git project/bloc-server
+
+#   Change Working directory to the api directory inside the project directory
+cd project/bloc-server/api
+
+#   Starts web-server
+#go run main.go
