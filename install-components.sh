@@ -28,3 +28,13 @@ apt-get update
 
 #	Install latest version of Docker
 apt-get install -y docker-ce docker-ce-cli containerd.io
+
+#	Upgrades all packages
+apt-get dist-upgrade -y
+
+#	Install net-tools and jq
+apt install -y net-tools
+apt install -y jq
+
+
+# mkdir -p mywork && cd mywork && curl -o minifab -sL https://tinyurl.com/twrt8zv && chmod +x minifab
