@@ -52,7 +52,7 @@
         "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",
         "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
         "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
-        "Script URL": "https://raw.githubusercontent.com/Jalmeida1994/Gather_Chain_Template/master/install-components.sh",
+        "Script URL": ["https://raw.githubusercontent.com/Jalmeida1994/Gather_Chain_Template/master/install-components.sh"],
         "Command": "sh install-components.sh"
     },
     "resources": [
