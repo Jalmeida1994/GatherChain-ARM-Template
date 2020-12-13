@@ -31,11 +31,6 @@ apt update -y
 #	Install latest version of Docker
 apt install -y docker-ce docker-ce-cli containerd.io
 
-#   Install Golang
-add-apt-repository ppa:longsleep/golang-backports -y
-apt update -y
-apt install -y golang-go
-
 #	Upgrades all packages
 # apt-get dist-upgrade -y
 
@@ -44,9 +39,3 @@ mkdir -p project/bloc-server
 
 #   Clones the project blockchain repository to the created directory
 git clone https://github.com/Jalmeida1994/GatherChain-Server.git project/bloc-server
-
-#   Change Working directory to the api directory inside the project directory
-#cd project/bloc-server/api
-
-#   Starts web-server
-#go run main.go
