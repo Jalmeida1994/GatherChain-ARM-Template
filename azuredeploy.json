@@ -52,7 +52,8 @@
         "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",
         "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
         "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
-        "Script URL": 
+        "Script URL": "https://raw.githubusercontent.com/Jalmeida1994/Gather_Chain_Template/master/install-components.sh",
+        "Command": "sh install-components.sh"
     },
     "resources": [
         {
@@ -180,10 +181,10 @@
                         "value": "westeurope"
                     },
                     "fileUris": {
-                        "value": []
+                        "value": "[variables('Script URL')]"
                     },
                     "commandToExecute": {
-                        "value": "apt -y update && apt install -y git apt-transport-https ca-certificates curl software-properties-common && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable\" && apt update -y && apt-get install -y docker-ce docker-ce-cli containerd.io"
+                        "value": "[variables('Command')]"
                     }
                 }
             },
