@@ -36,5 +36,8 @@ apt-get dist-upgrade -y
 apt install -y net-tools
 apt install -y jq
 
+#   Creates the directory to store the project
+mkdir -p project/bloc-server
 
-# mkdir -p mywork && cd mywork && curl -o minifab -sL https://tinyurl.com/twrt8zv && chmod +x minifab
+#   Clones the project blockchain repository to the created directory
+git clone https://github.com/Jalmeida1994/GatherChain-Server.git project/bloc-server
