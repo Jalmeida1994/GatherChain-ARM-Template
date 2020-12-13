@@ -6,7 +6,7 @@
 #	chmod +x instal-components.sh
 
 #	Update package index
-apt-get update
+apt-get update -y
 
 #	Install tools
 apt install -y \
@@ -22,11 +22,11 @@ apt install -y \
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - 
 
 #	Setup stable repo
-add-apt-repository \
+add-apt-repository -y \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 
 #	Update package index (again)
-apt update
+apt update -y
 
 #	Install latest version of Docker
 apt install -y docker-ce docker-ce-cli containerd.io
@@ -37,7 +37,7 @@ apt update -y
 apt install -y golang-go
 
 #	Upgrades all packages
-apt-get dist-upgrade -y
+# apt-get dist-upgrade -y
 
 #   Creates the directory to store the project
 mkdir -p project/bloc-server
@@ -46,7 +46,7 @@ mkdir -p project/bloc-server
 git clone https://github.com/Jalmeida1994/GatherChain-Server.git project/bloc-server
 
 #   Change Working directory to the api directory inside the project directory
-cd project/bloc-server/api
+#cd project/bloc-server/api
 
 #   Starts web-server
 #go run main.go
