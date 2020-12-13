@@ -189,6 +189,21 @@
             "dependsOn": [
                 "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
             ]
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "name": "[concat(parameters('virtualMachineName'),'/DockerExtension')]",
+            "apiVersion": "2019-12-01",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
+            ],
+            "properties": {
+                "publisher": "Microsoft.Azure.Extensions",
+                "type": "DockerExtension",
+                "typeHandlerVersion": "1.0",
+                "autoUpgradeMinorVersion": true
+            }
         }
     ],
     "outputs": {
