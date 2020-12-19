@@ -154,7 +154,7 @@
                 "protocol": "TCP",
                 "sourcePortRange": "*",
                 "destinationPortRange": "22",
-                "sourceAddressPrefix": "10.0.0.0",
+                "sourceAddressPrefix": "[reference(parameters('hostingPlanName'), '2018-02-01', 'Full').properties.inboundIpAddress]",
                 "destinationAddressPrefix": "*",
                 "access": "Allow",
                 "priority": 100,
