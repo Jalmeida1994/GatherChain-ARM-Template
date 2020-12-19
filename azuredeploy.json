@@ -2,6 +2,9 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "rg_name": {
+            "type": "string"
+        },
         "location": {
             "type": "string"
         },
@@ -10,9 +13,6 @@
         },
         "networkSecurityGroupName": {
             "type": "string"
-        },
-        "networkSecurityGroupRules": {
-            "type": "array"
         },
         "subnetName": {
             "type": "string"
@@ -32,9 +32,6 @@
         "virtualMachineComputerName": {
             "type": "string"
         },
-        "virtualMachineRG": {
-            "type": "string"
-        },
         "osDiskType": {
             "type": "string"
         },
@@ -46,6 +43,30 @@
         },
         "adminPassword": {
             "type": "secureString"
+        },
+         "appName": {
+            "type": "string"
+        },
+        "hostingPlanName": {
+            "type": "string"
+        },
+        "alwaysOn": {
+            "type": "bool"
+        },
+        "workerSize": {
+            "type": "string"
+        },
+        "workerSizeId": {
+            "type": "string"
+        },
+        "numberOfWorkers": {
+            "type": "string"
+        },
+        "sku": {
+            "type": "string"
+        },
+        "skuCode": {
+            "type": "string"
         }
     },
     "variables": {
@@ -53,7 +74,12 @@
         "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
         "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
         "Script URL": ["https://raw.githubusercontent.com/Jalmeida1994/Gather_Chain_Template/master/install-components.sh"],
-        "Command": "sh install-components.sh"
+        "Command": "sh install-components.sh",
+        "linuxFxVersion": "DOCKER|jalmeida1994/gatherchain-app:latest",
+        "dockerRegistryUrl": "https://index.docker.io",
+        "dockerRegistryUsername": "",
+        "dockerRegistryPassword": null,
+        "dockerRegistryStartupCommand": ""
     },
     "resources": [
         {
@@ -156,9 +182,73 @@
             }
         },
         {
+            "apiVersion": "2018-11-01",
+            "name": "[parameters('appName')]",
+            "type": "Microsoft.Web/sites",
+            "location": "[parameters('location')]",
+            "tags": {
+                "Enviroment": "DEV",
+                "Project": "Thesis"
+            },
+            "dependsOn": [
+                "[concat('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]"
+            ],
+            "properties": {
+                "name": "[parameters('appName')]",
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "DOCKER_REGISTRY_SERVER_URL",
+                            "value": "[variables('dockerRegistryUrl')]"
+                        },
+                        {
+                            "name": "DOCKER_REGISTRY_SERVER_USERNAME",
+                            "value": "[variables('dockerRegistryUsername')]"
+                        },
+                        {
+                            "name": "DOCKER_REGISTRY_SERVER_PASSWORD",
+                            "value": "[variables('dockerRegistryPassword')]"
+                        },
+                        {
+                            "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
+                            "value": "false"
+                        }
+                    ],
+                    "linuxFxVersion": "[variables('linuxFxVersion')]",
+                    "appCommandLine": "[variables('dockerRegistryStartupCommand')]",
+                    "alwaysOn": "[parameters('alwaysOn')]"
+                },
+                "serverFarmId": "[resourceId(parameters('rg_name'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+                "clientAffinityEnabled": false
+            }
+        },
+        {
+            "apiVersion": "2018-02-01",
+            "name": "[parameters('hostingPlanName')]",
+            "type": "Microsoft.Web/serverfarms",
+            "location": "[parameters('location')]",
+            "kind": "linux",
+            "tags": {
+                "Enviroment": "DEV",
+                "Project": "Thesis"
+            },
+            "dependsOn": [],
+            "properties": {
+                "name": "[parameters('hostingPlanName')]",
+                "workerSize": "[parameters('workerSize')]",
+                "workerSizeId": "[parameters('workerSizeId')]",
+                "numberOfWorkers": "[parameters('numberOfWorkers')]",
+                "reserved": true
+            },
+            "sku": {
+                "Tier": "[parameters('sku')]",
+                "Name": "[parameters('skuCode')]"
+            }
+        },
+        {
             "name": "[parameters('virtualMachineName')]",
             "type": "Microsoft.Compute/virtualMachines",
-            "apiVersion": "2020-06-01",
+            "apiVersion": "2019-07-01",
             "location": "[parameters('location')]",
             "dependsOn": [
                 "[concat('Microsoft.Network/networkInterfaces/', parameters('networkInterfaceName'))]"
@@ -215,10 +305,10 @@
                 },
                 "parameters": {
                     "vmName": {
-                        "value": "vmthesistest"
+                        "value": "[parameters('virtualMachineName')]"
                     },
                     "location": {
-                        "value": "westeurope"
+                        "value": "[parameters('location')]"
                     },
                     "fileUris": {
                         "value": "[variables('Script URL')]"
