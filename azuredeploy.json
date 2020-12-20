@@ -67,6 +67,8 @@
         }
     },
     "variables": {
+        "subscriptionId": "[subscription().id]",
+        "rg_name": "[resourceGroup().name]",
         "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",
         "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
         "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
@@ -213,7 +215,6 @@
             "properties": {
                 "enabled": true,
                 "name": "[parameters('appName')]",
-                "reserved": true,
                 "siteConfig": {
                     "appSettings": [
                         {
@@ -229,7 +230,7 @@
                     "alwaysOn": "[parameters('alwaysOn')]",
                     "vnetName": "[parameters('virtualNetworkName')]"
                 },
-                //"serverFarmId": "[resourceId(parameters('rg_name'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+                "serverFarmId": "[concat('/subscriptions/', variables('subscriptionId') ,'/resourcegroups/', variables('rg_name'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
                 "clientAffinityEnabled": false
             }
         },
@@ -296,7 +297,7 @@
                 },
                 "diagnosticsProfile": {
                     "bootDiagnostics": {
-                        "enabled": true
+                        "enabled": false
                     }
                 }
             },
