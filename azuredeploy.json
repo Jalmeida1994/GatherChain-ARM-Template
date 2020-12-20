@@ -67,6 +67,15 @@
         },
         "skuCode": {
             "type": "string"
+        },
+        "dockerRegistryUsername": {
+            "type": "string"
+        },
+        "dockerRegistryPassword": {
+            "type": "securestring"
+        },
+        "dockerRegistryStartupCommand": {
+            "type": "string"
         }
     },
     "variables": {
@@ -76,10 +85,7 @@
         "Script URL": ["https://raw.githubusercontent.com/Jalmeida1994/Gather_Chain_Template/master/install-components.sh"],
         "Command": "sh install-components.sh",
         "linuxFxVersion": "DOCKER|jalmeida1994/gatherchain-app:latest",
-        "dockerRegistryUrl": "https://index.docker.io",
-        "dockerRegistryUsername": "",
-        "dockerRegistryPassword": null,
-        "dockerRegistryStartupCommand": ""
+        "dockerRegistryUrl": "https://index.docker.io"
     },
     "resources": [
         {
@@ -125,7 +131,7 @@
                             "protocol": "TCP",
                             "sourcePortRange": "*",
                             "destinationPortRange": "22",
-                            "sourceAddressPrefix": "10.0.0.0",
+                            "sourceAddressPrefix": "*",
                             "destinationAddressPrefix": "*",
                             "access": "Allow",
                             "priority": 100,
@@ -154,7 +160,7 @@
                 "protocol": "TCP",
                 "sourcePortRange": "*",
                 "destinationPortRange": "22",
-                "sourceAddressPrefix": "[reference(parameters('hostingPlanName'), '2018-02-01', 'Full').properties.inboundIpAddress]",
+                "sourceAddressPrefix": "*",
                 "destinationAddressPrefix": "*",
                 "access": "Allow",
                 "priority": 100,
@@ -185,6 +191,7 @@
             "apiVersion": "2018-11-01",
             "name": "[parameters('appName')]",
             "type": "Microsoft.Web/sites",
+            "kind": "app,linux,container",
             "location": "[parameters('location')]",
             "tags": {
                 "Enviroment": "DEV",
@@ -194,31 +201,34 @@
                 "[concat('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]"
             ],
             "properties": {
+                "enabled": true,
                 "name": "[parameters('appName')]",
+                "reserved": true,
                 "siteConfig": {
                     "appSettings": [
                         {
                             "name": "DOCKER_REGISTRY_SERVER_URL",
                             "value": "[variables('dockerRegistryUrl')]"
                         },
-                        {
-                            "name": "DOCKER_REGISTRY_SERVER_USERNAME",
-                            "value": "[variables('dockerRegistryUsername')]"
-                        },
-                        {
-                            "name": "DOCKER_REGISTRY_SERVER_PASSWORD",
-                            "value": "[variables('dockerRegistryPassword')]"
-                        },
+                        //{
+                         //   "name": "DOCKER_REGISTRY_SERVER_USERNAME",
+                        //    "value": "[variables('dockerRegistryUsername')]"
+                        //},
+                       // {
+                       //     "name": "DOCKER_REGISTRY_SERVER_PASSWORD",
+                       //     "value": "[variables('dockerRegistryPassword')]"
+                       // },
                         {
                             "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
                             "value": "false"
                         }
                     ],
                     "linuxFxVersion": "[variables('linuxFxVersion')]",
-                    "appCommandLine": "[variables('dockerRegistryStartupCommand')]",
-                    "alwaysOn": "[parameters('alwaysOn')]"
+                    "appCommandLine": "[parameters('dockerRegistryStartupCommand')]",
+                    "alwaysOn": "[parameters('alwaysOn')]",
+                    "vnetName": "[parameters('virtualNetworkName')]"
                 },
-                "serverFarmId": "[resourceId(parameters('rg_name'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+                //"serverFarmId": "[resourceId(parameters('rg_name'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
                 "clientAffinityEnabled": false
             }
         },
