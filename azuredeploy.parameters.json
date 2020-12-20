@@ -2,6 +2,9 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "rg_name": {
+            "value": "rg_thesisbloc"
+        },
         "location": {
             "value": "westeurope"
         },
@@ -10,9 +13,6 @@
         },
         "networkSecurityGroupName": {
             "value": "vmthesistest-nsg"
-        },
-        "networkSecurityGroupRules": {
-            "value": []
         },
         "subnetName": {
             "value": "default"
@@ -41,9 +41,6 @@
         "virtualMachineComputerName": {
             "value": "vmthesistest"
         },
-        "virtualMachineRG": {
-            "value": "rggroup_thesistest"
-        },
         "osDiskType": {
             "value": "StandardSSD_LRS"
         },
@@ -55,6 +52,39 @@
         },
         "adminPassword": {
             "value": "adminPassword2020"
+        },
+        "appName": {
+            "value": "gatherchain-app"
+        },
+        "hostingPlanName": {
+            "value": "ASP-rgthesisbloc-b370"
+        },
+        "alwaysOn": {
+            "value": false
+        },
+        "workerSize": {
+            "value": "0"
+        },
+        "workerSizeId": {
+            "value": "0"
+        },
+        "numberOfWorkers": {
+            "value": "1"
+        },
+        "sku": {
+            "value": "Free"
+        },
+        "skuCode": {
+            "value": "F1"
+        },
+        "dockerRegistryUsername": {
+            "value": ""
+        },
+        "dockerRegistryPassword": {
+            "value": null
+        },
+        "dockerRegistryStartupCommand": {
+            "value": ""
         }
     }
 }
