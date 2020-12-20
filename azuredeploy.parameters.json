@@ -22,6 +22,9 @@
                 "10.0.0.0/24"
             ]
         },
+        "publicIPAddressName": {
+            "value": "BlocThesisIP"
+        },
         "subnets": {
             "value": [
                 {

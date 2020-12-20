@@ -64,6 +64,9 @@
         },
         "skuCode": {
             "type": "string"
+        },
+        "publicIPAddressName": {
+            "type": "string"
         }
     },
     "variables": {
@@ -79,11 +82,24 @@
     },
     "resources": [
         {
+      "apiVersion": "2020-05-01",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[parameters('publicIPAddressName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "publicIPAllocationMethod": "Static",
+        "dnsSettings": {
+          "domainNameLabel": "blocthesis-dns"
+        }
+      }
+    },
+        {
             "name": "[parameters('networkInterfaceName')]",
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2018-10-01",
             "location": "[parameters('location')]",
             "dependsOn": [
+                "[concat('Microsoft.Network/publicIPAddresses/', parameters('publicIPAddressName'))]",
                 "[concat('Microsoft.Network/networkSecurityGroups/', parameters('networkSecurityGroupName'))]",
                 "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]"
             ],
@@ -92,10 +108,16 @@
                     {
                         "name": "ipconfig1",
                         "properties": {
+                            "privateIPAddress": "10.0.0.4",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId ('Microsoft.Network/publicIPAddresses/', parameters('publicIPAddressName'))]"
+                            },
                             "subnet": {
                                 "id": "[variables('subnetRef')]"
                             },
-                            "privateIPAllocationMethod": "Dynamic"
+                            "primary": true,
+                            "privateIPAddressVersion": "IPv4"
                         }
                     }
                 ],
