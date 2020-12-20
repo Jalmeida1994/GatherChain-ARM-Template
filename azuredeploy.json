@@ -2,9 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "rg_name": {
-            "type": "string"
-        },
         "location": {
             "type": "string"
         },
@@ -44,7 +41,7 @@
         "adminPassword": {
             "type": "secureString"
         },
-         "appName": {
+        "appName": {
             "type": "string"
         },
         "hostingPlanName": {
@@ -67,24 +64,15 @@
         },
         "skuCode": {
             "type": "string"
-        },
-        "dockerRegistryUsername": {
-            "type": "string"
-        },
-        "dockerRegistryPassword": {
-            "type": "securestring"
-        },
-        "dockerRegistryStartupCommand": {
-            "type": "string"
         }
     },
     "variables": {
         "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",
         "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
         "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
-        "Script URL": ["https://raw.githubusercontent.com/Jalmeida1994/Gather_Chain_Template/master/install-components.sh"],
+        "Script URL": [ "https://raw.githubusercontent.com/Jalmeida1994/Gather_Chain_Template/master/install-components.sh" ],
         "Command": "sh install-components.sh",
-        "linuxFxVersion": "DOCKER|jalmeida1994/gatherchain-app:latest",
+        "linuxFxVersion": "DOCKER|jalmeida1994/gatherchain-app",
         "dockerRegistryUrl": "https://index.docker.io"
     },
     "resources": [
@@ -188,6 +176,28 @@
             }
         },
         {
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "apiVersion": "2020-05-01",
+            "name": "[concat(parameters('virtualNetworkName'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]"
+            ],
+            "properties": {
+                "addressPrefix": "10.0.0.0/24",
+                "serviceEndpoints": [
+                    {
+                        "service": "Microsoft.Web",
+                        "locations": [
+                            "*"
+                        ]
+                    }
+                ],
+                "delegations": [],
+                "privateEndpointNetworkPolicies": "Enabled",
+                "privateLinkServiceNetworkPolicies": "Enabled"
+            }
+        },
+        {
             "apiVersion": "2018-11-01",
             "name": "[parameters('appName')]",
             "type": "Microsoft.Web/sites",
@@ -210,21 +220,12 @@
                             "name": "DOCKER_REGISTRY_SERVER_URL",
                             "value": "[variables('dockerRegistryUrl')]"
                         },
-                        //{
-                         //   "name": "DOCKER_REGISTRY_SERVER_USERNAME",
-                        //    "value": "[variables('dockerRegistryUsername')]"
-                        //},
-                       // {
-                       //     "name": "DOCKER_REGISTRY_SERVER_PASSWORD",
-                       //     "value": "[variables('dockerRegistryPassword')]"
-                       // },
                         {
                             "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
                             "value": "false"
                         }
                     ],
                     "linuxFxVersion": "[variables('linuxFxVersion')]",
-                    "appCommandLine": "[parameters('dockerRegistryStartupCommand')]",
                     "alwaysOn": "[parameters('alwaysOn')]",
                     "vnetName": "[parameters('virtualNetworkName')]"
                 },
