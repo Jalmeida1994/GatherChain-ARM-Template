@@ -2,9 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "rg_name": {
-            "value": "rg_thesisbloc"
-        },
         "location": {
             "value": "westeurope"
         },
@@ -25,12 +22,26 @@
                 "10.0.0.0/24"
             ]
         },
+        "publicIPAddressName": {
+            "value": "BlocThesisIP"
+        },
         "subnets": {
             "value": [
                 {
                     "name": "default",
                     "properties": {
-                        "addressPrefix": "10.0.0.0/24"
+                        "addressPrefix": "10.0.0.0/24",
+                        "serviceEndpoints": [
+                            {
+                                "service": "Microsoft.Web",
+                                "locations": [
+                                    "*"
+                                ]
+                            }
+                        ],
+                        "delegations": [],
+                        "privateEndpointNetworkPolicies": "Enabled",
+                        "privateLinkServiceNetworkPolicies": "Enabled"
                     }
                 }
             ]
@@ -76,15 +87,6 @@
         },
         "skuCode": {
             "value": "F1"
-        },
-        "dockerRegistryUsername": {
-            "value": ""
-        },
-        "dockerRegistryPassword": {
-            "value": null
-        },
-        "dockerRegistryStartupCommand": {
-            "value": ""
         }
     }
 }
