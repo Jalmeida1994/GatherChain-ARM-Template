@@ -35,7 +35,7 @@ apt install -y docker-ce docker-ce-cli containerd.io
 # apt-get dist-upgrade -y
 
 #   Creates the directory to store the project
-mkdir -p /var/lib/project/bloc-server
+mkdir -p project/bloc-server
 
 #   Clones the project blockchain repository to the created directory
-git clone https://github.com/Jalmeida1994/GatherChain-Server.git /var/lib/project/bloc-server
+git clone https://github.com/Jalmeida1994/GatherChain-Server.git project/bloc-server
