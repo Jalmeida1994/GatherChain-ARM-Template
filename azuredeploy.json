@@ -85,6 +85,27 @@
             "metadata": {
                 "description": "Specifies the MongoDB server version to use."
             }
+        },
+        "databaseName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name for the Mongo DB database"
+            }
+        },
+        "throughput": {
+            "type": "int",
+            "defaultValue": 400,
+            "minValue": 400,
+            "maxValue": 1000000,
+            "metadata": {
+                "description": "The shared throughput for the Mongo DB database"
+            }
+        },
+        "collectionName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name for the Mongo DB collection"
+            }
         }
     },
     "variables": {
@@ -107,7 +128,7 @@
             "location": "[parameters('location')]",
             "kind": "MongoDB",
             "properties": {
-               "enableFreeTier": true,
+                "enableFreeTier": true,
                 "databaseAccountOfferType": "Standard",
                 "consistencyPolicy": {
                     "defaultConsistencyLevel": "Session"
@@ -119,6 +140,43 @@
                 ],
                 "apiProperties": {
                     "serverVersion": "[parameters('serverVersion')]"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DocumentDB/databaseAccounts/mongodbDatabases",
+            "name": "[concat(variables('DBaccountName'), '/', parameters('databaseName'))]",
+            "apiVersion": "2020-03-01",
+            "dependsOn": [ "[resourceId('Microsoft.DocumentDB/databaseAccounts/', variables('DBaccountName'))]" ],
+            "properties": {
+                "resource": {
+                    "id": "[parameters('databaseName')]"
+                },
+                "options": { "throughput": "[parameters('throughput')]" }
+            }
+        },
+        {
+            "type": "Microsoft.DocumentDb/databaseAccounts/mongodbDatabases/collections",
+            "name": "[concat(variables('DBaccountName'), '/', parameters('databaseName'), '/', parameters('collectionName'))]",
+            "apiVersion": "2020-03-01",
+            "dependsOn": [ "[resourceId('Microsoft.DocumentDB/databaseAccounts/mongodbDatabases', variables('DBaccountName'), parameters('databaseName'))]" ],
+            "properties": {
+                "resource": {
+                    "id": "[parameters('collectionName')]",
+                    "shardKey": { "git_id": "Hash" },
+                    "indexes": [
+                        {
+                            "key": { "keys": [ "git_id", "student_id" ] },
+                            "options": { "unique": true }
+                        },
+                        {
+                            "key": { "keys": [ "_ts" ] },
+                            "options": { "expireAfterSeconds": 2629746 }
+                        }
+                    ],
+                    "options": {
+                        "If-Match": "<ETag>"
+                    }
                 }
             }
         },
