@@ -93,6 +93,9 @@
         },
         "throughput": {
             "value": 400
+        },
+        "collectionName": {
+            "value": "gitnrsdbthesiscollection" 
         }
     }
 }
