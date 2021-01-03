@@ -67,6 +67,24 @@
         },
         "publicIPAddressName": {
             "type": "string"
+        },
+        "DBaccountName": {
+            "type": "string",
+            "defaultValue": "[concat('mongodb-', uniqueString(resourceGroup().id))]",
+            "metadata": {
+                "description": "Cosmos DB account name"
+            }
+        },
+        "serverVersion": {
+            "defaultValue": "3.6",
+            "allowedValues": [
+                "3.2",
+                "3.6"
+            ],
+            "type": "String",
+            "metadata": {
+                "description": "Specifies the MongoDB server version to use."
+            }
         }
     },
     "variables": {
@@ -78,21 +96,44 @@
         "Script URL": [ "https://raw.githubusercontent.com/Jalmeida1994/Gather_Chain_Template/master/install-components.sh" ],
         "Command": "sh install-components.sh",
         "linuxFxVersion": "DOCKER|jalmeida1994/gatherchain-app",
-        "dockerRegistryUrl": "https://index.docker.io"
+        "dockerRegistryUrl": "https://index.docker.io",
+        "DBaccountName": "[toLower(parameters('DBaccountName'))]"
     },
     "resources": [
         {
-      "apiVersion": "2020-05-01",
-      "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[parameters('publicIPAddressName')]",
-      "location": "[parameters('location')]",
-      "properties": {
-        "publicIPAllocationMethod": "Static",
-        "dnsSettings": {
-          "domainNameLabel": "blocthesis-dns"
-        }
-      }
-    },
+            "type": "Microsoft.DocumentDB/databaseAccounts",
+            "name": "[variables('DBaccountName')]",
+            "apiVersion": "2020-03-01",
+            "location": "[parameters('location')]",
+            "kind": "MongoDB",
+            "properties": {
+               "enableFreeTier": true,
+                "databaseAccountOfferType": "Standard",
+                "consistencyPolicy": {
+                    "defaultConsistencyLevel": "Session"
+                },
+                "locations": [
+                    {
+                        "locationName": "[parameters('location')]"
+                    }
+                ],
+                "apiProperties": {
+                    "serverVersion": "[parameters('serverVersion')]"
+                }
+            }
+        },
+        {
+            "apiVersion": "2020-05-01",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIPAddressName')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "publicIPAllocationMethod": "Static",
+                "dnsSettings": {
+                    "domainNameLabel": "blocthesis-dns"
+                }
+            }
+        },
         {
             "name": "[parameters('networkInterfaceName')]",
             "type": "Microsoft.Network/networkInterfaces",
