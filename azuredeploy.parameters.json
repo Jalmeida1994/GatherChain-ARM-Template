@@ -87,6 +87,12 @@
         },
         "skuCode": {
             "value": "F1"
+        },
+        "databaseName": {
+            "value": "mongodbthesistest"
+        },
+        "throughput": {
+            "value": 400
         }
     }
 }
