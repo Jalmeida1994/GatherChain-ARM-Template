@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "location": {
-            "value": "westeurope"
+            "value": "northeurope"
         },
         "networkInterfaceName": {
             "value": "vmthesistest987"
@@ -87,6 +87,15 @@
         },
         "skuCode": {
             "value": "F1"
+        },
+        "serverName": {
+            "value": "gatherchain-db"
+        },
+        "adminDBLogin": {
+            "value": "adminDBUsername"
+        },
+        "adminDBLoginPassword": {
+            "value": "adminDBPassword2020"
         }
     }
 }

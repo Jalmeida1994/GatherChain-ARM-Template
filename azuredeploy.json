@@ -67,6 +67,25 @@
         },
         "publicIPAddressName": {
             "type": "string"
+        },
+        "serverName": {
+            "type": "string",
+            "defaultValue": "[uniqueString('sql', resourceGroup().id)]",
+            "metadata": {
+                "description": "The name of the SQL logical server."
+            }
+        },
+        "adminDBLogin": {
+            "type": "string",
+            "metadata": {
+                "description": "The administrator username of the SQL logical server."
+            }
+        },
+        "adminDBLoginPassword": {
+            "type": "securestring",
+            "metadata": {
+                "description": "The administrator password of the SQL logical server."
+            }
         }
     },
     "variables": {
@@ -75,24 +94,25 @@
         "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",
         "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
         "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
-        "Script URL": [ "https://raw.githubusercontent.com/Jalmeida1994/Gather_Chain_Template/master/install-components.sh" ],
+        "Script URL": "https://raw.githubusercontent.com/Jalmeida1994/Gather_Chain_Template/master/install-components.sh",
         "Command": "sh install-components.sh",
         "linuxFxVersion": "DOCKER|jalmeida1994/gatherchain-app",
-        "dockerRegistryUrl": "https://index.docker.io"
+        "dockerRegistryUrl": "https://index.docker.io",
+        "sqlDBName": "DBGitHubNames"
     },
     "resources": [
         {
-      "apiVersion": "2020-05-01",
-      "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[parameters('publicIPAddressName')]",
-      "location": "[parameters('location')]",
-      "properties": {
-        "publicIPAllocationMethod": "Static",
-        "dnsSettings": {
-          "domainNameLabel": "blocthesis-dns"
-        }
-      }
-    },
+            "apiVersion": "2020-05-01",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIPAddressName')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "publicIPAllocationMethod": "Static",
+                "dnsSettings": {
+                    "domainNameLabel": "blocthesis-dns"
+                }
+            }
+        },
         {
             "name": "[parameters('networkInterfaceName')]",
             "type": "Microsoft.Network/networkInterfaces",
@@ -326,34 +346,59 @@
             "tags": {
                 "Enviroment": "DEV",
                 "Project": "Thesis"
-            }
-        },
-        {
-            "name": "microsoft.custom-script-linux-20201212162109",
-            "apiVersion": "2015-01-01",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "incremental",
-                "templateLink": {
-                    "uri": "https://gallery.azure.com/artifact/20161101/microsoft.custom-script-linux-arm.2.0.56/Artifacts/MainTemplate.json"
-                },
-                "parameters": {
-                    "vmName": {
-                        "value": "[parameters('virtualMachineName')]"
+            },
+            "resources": [
+                {
+                    "apiVersion": "2015-06-15",
+                    "type": "extensions",
+                    "name": "config-app",
+                    "location": "[parameters('location')]",
+                    "dependsOn": [
+                        "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
+                    ],
+                    "tags": {
+                        "displayName": "config-app"
                     },
-                    "location": {
-                        "value": "[parameters('location')]"
-                    },
-                    "fileUris": {
-                        "value": "[variables('Script URL')]"
-                    },
-                    "commandToExecute": {
-                        "value": "[variables('Command')]"
+                    "properties": {
+                        "publisher": "Microsoft.Azure.Extensions",
+                        "type": "CustomScript",
+                        "typeHandlerVersion": "2.0",
+                        "autoUpgradeMinorVersion": true,
+                        "settings": {
+                            "fileUris": [
+                                "[variables('Script URL')]"
+                            ]
+                        },
+                        "protectedSettings": {
+                            "commandToExecute": "[variables('Command')]"
+                        }
                     }
                 }
+            ]
+        },
+        {
+            "type": "Microsoft.Sql/servers",
+            "apiVersion": "2020-02-02-preview",
+            "name": "[parameters('serverName')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "administratorLogin": "[parameters('adminDBLogin')]",
+                "administratorLoginPassword": "[parameters('adminDBLoginPassword')]"
             },
-            "dependsOn": [
-                "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
+            "resources": [
+                {
+                    "type": "databases",
+                    "apiVersion": "2020-08-01-preview",
+                    "name": "[variables('sqlDBName')]",
+                    "location": "[parameters('location')]",
+                    "sku": {
+                        "name": "Standard",
+                        "tier": "Standard"
+                    },
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Sql/servers', concat(parameters('serverName')))]"
+                    ]
+                }
             ]
         }
     ],
@@ -361,6 +406,10 @@
         "adminUsername": {
             "type": "string",
             "value": "[parameters('adminUsername')]"
+        },
+        "adminDBUsername": {
+            "type": "string",
+            "value": "[parameters('adminDBLogin')]"
         }
     }
 }
