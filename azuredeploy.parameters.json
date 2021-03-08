@@ -88,14 +88,17 @@
         "skuCode": {
             "value": "F1"
         },
-        "serverName": {
-            "value": "gatherchain-db"
+        "cacheName": {
+            "value": "gatherchain-cache"
         },
-        "adminDBLogin": {
-            "value": "adminDBUsername"
+        "cacheSKUName": {
+            "value": "Basic"
         },
-        "adminDBLoginPassword": {
-            "value": "adminDBPassword2020"
+        "cacheSKUFamily": {
+            "value": "C"
+        },
+        "cacheSKUCapacity": {
+            "value": 1
         }
     }
 }

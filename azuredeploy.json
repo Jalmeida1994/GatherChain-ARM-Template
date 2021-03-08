@@ -68,23 +68,44 @@
         "publicIPAddressName": {
             "type": "string"
         },
-        "serverName": {
+        "cacheName": {
+            "type": "string"
+        },
+        "cacheSKUName": {
             "type": "string",
-            "defaultValue": "[uniqueString('sql', resourceGroup().id)]",
+            "allowedValues": [
+                "Basic",
+                "Standard"
+            ],
+            "defaultValue": "Basic",
             "metadata": {
-                "description": "The name of the SQL logical server."
+                "description": "The pricing tier of the new Azure Redis Cache."
             }
         },
-        "adminDBLogin": {
+        "cacheSKUFamily": {
             "type": "string",
+            "allowedValues": [
+                "C"
+            ],
+            "defaultValue": "C",
             "metadata": {
-                "description": "The administrator username of the SQL logical server."
+                "description": "The family for the sku."
             }
         },
-        "adminDBLoginPassword": {
-            "type": "securestring",
+        "cacheSKUCapacity": {
+            "type": "int",
+            "allowedValues": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+            ],
+            "defaultValue": 0,
             "metadata": {
-                "description": "The administrator password of the SQL logical server."
+                "description": "The size of the new Azure Redis Cache instance. "
             }
         }
     },
@@ -97,8 +118,7 @@
         "Script URL": "https://raw.githubusercontent.com/Jalmeida1994/Gather_Chain_Template/master/install-components.sh",
         "Command": "sh install-components.sh",
         "linuxFxVersion": "DOCKER|jalmeida1994/gatherchain-app",
-        "dockerRegistryUrl": "https://index.docker.io",
-        "sqlDBName": "DBGitHubNames"
+        "dockerRegistryUrl": "https://index.docker.io"
     },
     "resources": [
         {
@@ -252,7 +272,8 @@
                 "Project": "Thesis"
             },
             "dependsOn": [
-                "[concat('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]"
+                "[concat('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+                "[concat('Microsoft.Cache/Redis/', parameters('cacheName'))]"
             ],
             "properties": {
                 "enabled": true,
@@ -272,6 +293,20 @@
                     "alwaysOn": "[parameters('alwaysOn')]",
                     "vnetName": "[parameters('virtualNetworkName')]"
                 },
+                "resources": [
+                    {
+                        "apiVersion": "2015-08-01",
+                        "type": "config",
+                        "name": "appsettings",
+                        "dependsOn": [
+                            "[concat('Microsoft.Web/Sites/',  parameters('appName'))]",
+                            "[concat('Microsoft.Cache/Redis/', parameters('cacheName'))]"
+                        ],
+                        "properties": {
+                            "CacheConnection": "[concat(parameters('cacheName'),'.redis.cache.windows.net,abortConnect=false,ssl=true,password=', listKeys(resourceId('Microsoft.Cache/Redis', parameters('cacheName')), '2015-08-01').primaryKey)]"
+                        }
+                    }
+                ],
                 "serverFarmId": "[concat('/subscriptions/', variables('subscriptionId') ,'/resourcegroups/', variables('rg_name'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
                 "clientAffinityEnabled": false
             }
@@ -377,39 +412,28 @@
             ]
         },
         {
-            "type": "Microsoft.Sql/servers",
-            "apiVersion": "2020-02-02-preview",
-            "name": "[parameters('serverName')]",
+            "name": "[parameters('cacheName')]",
+            "type": "Microsoft.Cache/Redis",
             "location": "[parameters('location')]",
-            "properties": {
-                "administratorLogin": "[parameters('adminDBLogin')]",
-                "administratorLoginPassword": "[parameters('adminDBLoginPassword')]"
+            "apiVersion": "2015-08-01",
+            "dependsOn": [],
+            "tags": {
+                "displayName": "cache"
             },
-            "resources": [
-                {
-                    "type": "databases",
-                    "apiVersion": "2020-08-01-preview",
-                    "name": "[variables('sqlDBName')]",
-                    "location": "[parameters('location')]",
-                    "sku": {
-                        "name": "Standard",
-                        "tier": "Standard"
-                    },
-                    "dependsOn": [
-                        "[resourceId('Microsoft.Sql/servers', concat(parameters('serverName')))]"
-                    ]
+            "properties": {
+                "sku": {
+                    "name": "[parameters('cacheSKUName')]",
+                    "family": "[parameters('cacheSKUFamily')]",
+                    "capacity": "[parameters('cacheSKUCapacity')]"
                 }
-            ]
+            }
         }
+
     ],
     "outputs": {
         "adminUsername": {
             "type": "string",
             "value": "[parameters('adminUsername')]"
-        },
-        "adminDBUsername": {
-            "type": "string",
-            "value": "[parameters('adminDBLogin')]"
         }
     }
 }
