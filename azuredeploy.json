@@ -287,26 +287,24 @@
                         {
                             "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
                             "value": "false"
+                        },
+                        {
+                            "name": "CACHE_CONNECTION",
+                            "value": "[concat(parameters('cacheName'),'.redis.cache.windows.net,abortConnect=false,ssl=true,password=', listKeys(resourceId('Microsoft.Cache/Redis', parameters('cacheName')), '2015-08-01').primaryKey)]"
+                        },
+                          {
+                            "name": "REDIS_HOST",
+                            "value": "[concat(parameters('cacheName'),'.redis.cache.windows.net')]"
+                        },
+                        {
+                            "name": "REDIS_PASSWORD",
+                            "value": "[listKeys(resourceId('Microsoft.Cache/Redis', parameters('cacheName')), '2015-08-01').primaryKey]"
                         }
                     ],
                     "linuxFxVersion": "[variables('linuxFxVersion')]",
                     "alwaysOn": "[parameters('alwaysOn')]",
                     "vnetName": "[parameters('virtualNetworkName')]"
                 },
-                "resources": [
-                    {
-                        "apiVersion": "2015-08-01",
-                        "type": "config",
-                        "name": "appsettings",
-                        "dependsOn": [
-                            "[concat('Microsoft.Web/Sites/',  parameters('appName'))]",
-                            "[concat('Microsoft.Cache/Redis/', parameters('cacheName'))]"
-                        ],
-                        "properties": {
-                            "CacheConnection": "[concat(parameters('cacheName'),'.redis.cache.windows.net,abortConnect=false,ssl=true,password=', listKeys(resourceId('Microsoft.Cache/Redis', parameters('cacheName')), '2015-08-01').primaryKey)]"
-                        }
-                    }
-                ],
                 "serverFarmId": "[concat('/subscriptions/', variables('subscriptionId') ,'/resourcegroups/', variables('rg_name'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
                 "clientAffinityEnabled": false
             }
