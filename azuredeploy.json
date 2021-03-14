@@ -294,7 +294,7 @@
                         },
                           {
                             "name": "REDIS_HOST",
-                            "value": "[concat(parameters('cacheName'),'.redis.cache.windows.net')]"
+                            "value": "[concat(parameters('cacheName'),'.redis.cache.windows.net:6380')]"
                         },
                         {
                             "name": "REDIS_PASSWORD",
