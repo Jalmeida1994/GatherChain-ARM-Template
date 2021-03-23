@@ -289,12 +289,8 @@
                             "value": "false"
                         },
                         {
-                            "name": "CACHE_CONNECTION",
-                            "value": "[concat(parameters('cacheName'),'.redis.cache.windows.net,abortConnect=false,ssl=true,password=', listKeys(resourceId('Microsoft.Cache/Redis', parameters('cacheName')), '2015-08-01').primaryKey)]"
-                        },
-                          {
                             "name": "REDIS_HOST",
-                            "value": "[concat(parameters('cacheName'),'.redis.cache.windows.net:6379')]"
+                            "value": "[concat(parameters('cacheName'),'.redis.cache.windows.net:6380')]"
                         },
                         {
                             "name": "REDIS_PASSWORD",
@@ -419,7 +415,6 @@
                 "displayName": "cache"
             },
             "properties": {
-                "enableNonSslPort": true,
                 "sku": {
                     "name": "[parameters('cacheSKUName')]",
                     "family": "[parameters('cacheSKUFamily')]",
