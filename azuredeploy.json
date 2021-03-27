@@ -288,6 +288,14 @@
                             "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
                             "value": "false"
                         },
+                         {
+                            "name": "VM_USERNAME",
+                            "value": "[parameters('adminUsername')]"
+                        },
+                        {
+                            "name": "VM_PASSWORD",
+                            "value": "[parameters('adminPassword')]"
+                        },
                         {
                             "name": "REDIS_HOST",
                             "value": "[concat(parameters('cacheName'),'.redis.cache.windows.net:6380')]"
