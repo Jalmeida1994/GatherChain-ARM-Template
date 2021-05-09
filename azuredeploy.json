@@ -68,6 +68,9 @@
         "publicIPAddressName": {
             "type": "string"
         },
+        "publicIPAddress": {
+            "type": "string"
+        },
         "cacheName": {
             "type": "string"
         },
@@ -128,6 +131,7 @@
             "location": "[parameters('location')]",
             "properties": {
                 "publicIPAllocationMethod": "Static",
+                "ipAddress": "[parameters('publicIPAddress')]",
                 "dnsSettings": {
                     "domainNameLabel": "blocthesis-dns"
                 }
@@ -272,6 +276,7 @@
                 "Project": "Thesis"
             },
             "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses/', parameters('publicIPAddressName'))]",
                 "[concat('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
                 "[concat('Microsoft.Cache/Redis/', parameters('cacheName'))]"
             ],
@@ -281,6 +286,10 @@
                 "siteConfig": {
                     "appSettings": [
                         {
+                            "name": "VM_PUBLIC_IP",
+                            "value": "[parameters('publicIPAddress')]"
+                        },
+                        {
                             "name": "DOCKER_REGISTRY_SERVER_URL",
                             "value": "[variables('dockerRegistryUrl')]"
                         },
@@ -288,7 +297,7 @@
                             "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
                             "value": "false"
                         },
-                         {
+                        {
                             "name": "VM_USERNAME",
                             "value": "[parameters('adminUsername')]"
                         },
