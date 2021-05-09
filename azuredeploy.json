@@ -68,9 +68,6 @@
         "publicIPAddressName": {
             "type": "string"
         },
-        "publicIPAddress": {
-            "type": "string"
-        },
         "cacheName": {
             "type": "string"
         },
@@ -131,7 +128,6 @@
             "location": "[parameters('location')]",
             "properties": {
                 "publicIPAllocationMethod": "Static",
-                "ipAddress": "[parameters('publicIPAddress')]",
                 "dnsSettings": {
                     "domainNameLabel": "blocthesis-dns"
                 }
@@ -287,7 +283,7 @@
                     "appSettings": [
                         {
                             "name": "VM_PUBLIC_IP",
-                            "value": "[parameters('publicIPAddress')]"
+                            "value": "[reference(parameters('publicIPAddressName')).ipAddress]"
                         },
                         {
                             "name": "DOCKER_REGISTRY_SERVER_URL",
