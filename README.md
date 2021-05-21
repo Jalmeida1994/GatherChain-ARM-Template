@@ -98,10 +98,10 @@ This repository serves as the Cloud infraestructure for the solution. It was cho
 
 The infraestructure of the solution is made of different resources. As mentioned in the last section, these resources are platform agnostic. These resources can be found in every major cloud provider and deployed in an on premises environment:
 * [Azure Virtual Machine](https://azure.microsoft.com/en-us/services/virtual-machines/)
-  * Ubuntu OS
+  * [Ubuntu OS](https://ubuntu.com/azure)
 * [Azure Web App for Containers](https://azure.microsoft.com/en-us/services/app-service/containers/)
   * Docker Hub Image: [jalmeida1994/gatherchain-app](https://hub.docker.com/repository/docker/jalmeida1994/gatherchain-app)
-* [Azure Cache for Redis](hhttps://azure.microsoft.com/en-us/services/cache/)
+* [Azure Cache for Redis](https://azure.microsoft.com/en-us/services/cache/)
 
 
 <!-- GETTING STARTED -->
