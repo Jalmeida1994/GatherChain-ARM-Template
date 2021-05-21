@@ -153,7 +153,7 @@ To delete all the resources created use the `az group delete` command
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/Jalmeida1994/Gather-Chain-Template/issues) for a list of proposed features (and known issues).
 
 
 
@@ -180,28 +180,16 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+João Almeida - [@João Almeida](https://www.linkedin.com/in/jo%C3%A3o-almeida-525476125/) - jcfd.almeida@campus.fct.unl.pt
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Project Link: [https://github.com/Jalmeida1994/Gather-Chain-Template](https://github.com/Jalmeida1994/Gather-Chain-Template)
 
 
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Img Shields](https://shields.io)
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Pages](https://pages.github.com)
-* [Animate.css](https://daneden.github.io/animate.css)
-* [Loaders.css](https://connoratherton.com/loaders)
-* [Slick Carousel](https://kenwheeler.github.io/slick)
-* [Smooth Scroll](https://github.com/cferdinandi/smooth-scroll)
-* [Sticky Kit](http://leafo.net/sticky-kit)
-* [JVectorMap](http://jvectormap.com)
-* [Font Awesome](https://fontawesome.com)
-
-
-
+* [FCT-UNL](https://www.fct.unl.pt/)
+* [Professor Vasco Amaral](https://docentes.fct.unl.pt/vma/)
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
