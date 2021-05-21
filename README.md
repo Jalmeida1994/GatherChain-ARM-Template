@@ -96,11 +96,12 @@ This repository serves as the Cloud infraestructure for the solution. It was cho
 
 ### Built With
 
-The infraestructure of the solution is made of different resources. As said in the last section, these resources are platform agnostic. These resources can be found in every major cloud provider and deployed in an on premises environment:
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
-* [Laravel](https://laravel.com)
-
+The infraestructure of the solution is made of different resources. As mentioned in the last section, these resources are platform agnostic. These resources can be found in every major cloud provider and deployed in an on premises environment:
+* [Azure Virtual Machine](https://azure.microsoft.com/en-us/services/virtual-machines/)
+  * Ubuntu OS
+* [Azure Web App for Containers](https://azure.microsoft.com/en-us/services/app-service/containers/)
+  * Docker Hub Image: [jalmeida1994/gatherchain-app](https://hub.docker.com/repository/docker/jalmeida1994/gatherchain-app)
+* [Azure Cache for Redis](hhttps://azure.microsoft.com/en-us/services/cache/)
 
 
 <!-- GETTING STARTED -->
@@ -118,7 +119,8 @@ In this section it'll be shown how to get started with this solution. It is fixe
    ```sh
    git clone https://github.com/Jalmeida1994/Gather-Chain-Template.git
    ```
-3. Change the parameters in [azuredeploy.parameters.json](https://github.com/Jalmeida1994/Gather-Chain-Template/blob/master/azuredeploy.parameters.json) to your needs;
+2. Change the parameters in [azuredeploy.parameters.json](https://github.com/Jalmeida1994/Gather-Chain-Template/blob/master/azuredeploy.parameters.json) to your needs;
+
 4. Login to Azure in `az` if not logged yet
    ```
    az login
