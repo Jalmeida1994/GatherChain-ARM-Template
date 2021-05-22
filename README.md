@@ -36,14 +36,12 @@
   <p align="center">
     ARM template of the GatherChain solution.
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Jalmeida1994/GatherChain-ARM-Template/README.md"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    <a href="https://github.com/Jalmeida1994/GatherChain-ARM-Template/issues">Report Bug</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
+    <a href="https://github.com/Jalmeida1994/GatherChain-ARM-Template/issues">Request Feature</a>
   </p>
 </p>
 
@@ -138,9 +136,9 @@ In this section it'll be shown how to get started with this solution. It is fixe
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+After the template is deployed to your cloud provider of choice or on premises infraestructure, you should start the blockchain network using the admin commands found in the [GatherChain Admin Commands](https://github.com/Jalmeida1994/GatherChain-AdminCommands).
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+_For more information, please refer to the [Documentation](https://github.com/Jalmeida1994/GatherChain-AdminCommands/README.md_
 
 
 <!-- USAGE EXAMPLES -->
