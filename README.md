@@ -27,7 +27,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/Jalmeida1994/Gather-Chain-Template">
+  <a href="https://github.com/Jalmeida1994/GatherChain-ARM-Template">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -117,9 +117,9 @@ In this section it'll be shown how to get started with this solution. It is fixe
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/Jalmeida1994/Gather-Chain-Template.git
+   git clone https://github.com/Jalmeida1994/GatherChain-ARM-Template.git
    ```
-2. Change the parameters in [azuredeploy.parameters.json](https://github.com/Jalmeida1994/Gather-Chain-Template/blob/master/azuredeploy.parameters.json) to your needs;
+2. Change the parameters in [azuredeploy.parameters.json](https://github.com/Jalmeida1994/GatherChain-ARM-Template/blob/master/azuredeploy.parameters.json) to your needs;
 
 4. Login to Azure in `az` if not logged yet
    ```
@@ -155,7 +155,7 @@ To delete all the resources created use the `az group delete` command
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/Jalmeida1994/Gather-Chain-Template/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/Jalmeida1994/GatherChain-ARM-Template/issues) for a list of proposed features (and known issues).
 
 
 
@@ -184,7 +184,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 João Almeida - [@João Almeida](https://www.linkedin.com/in/jo%C3%A3o-almeida-525476125/) - jcfd.almeida@campus.fct.unl.pt
 
-Project Link: [https://github.com/Jalmeida1994/Gather-Chain-Template](https://github.com/Jalmeida1994/Gather-Chain-Template)
+Project Link: [https://github.com/Jalmeida1994/GatherChain-ARM-Template](https://github.com/Jalmeida1994/GatherChain-ARM-Template)
 
 
 
@@ -196,16 +196,16 @@ Project Link: [https://github.com/Jalmeida1994/Gather-Chain-Template](https://gi
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/Jalmeida1994/Gather-Chain-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/Jalmeida1994/Gather-Chain-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/Jalmeida1994/Gather-Chain-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/Jalmeida1994/Gather-Chain-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/Jalmeida1994/Gather-Chain-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/Jalmeida1994/Gather-Chain-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/Jalmeida1994/Gather-Chain-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/Jalmeida1994/Gather-Chain-Template/issues
-[license-shield]: https://img.shields.io/github/license/Jalmeida1994/Gather-Chain-Template.svg?style=for-the-badge
-[license-url]: https://github.com/Jalmeida1994/Gather-Chain-Template/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/Jalmeida1994/GatherChain-ARM-Template.svg?style=for-the-badge
+[contributors-url]: https://github.com/Jalmeida1994/GatherChain-ARM-Template/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Jalmeida1994/GatherChain-ARM-Template.svg?style=for-the-badge
+[forks-url]: https://github.com/Jalmeida1994/GatherChain-ARM-Template/network/members
+[stars-shield]: https://img.shields.io/github/stars/Jalmeida1994/GatherChain-ARM-Template.svg?style=for-the-badge
+[stars-url]: https://github.com/Jalmeida1994/GatherChain-ARM-Template/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Jalmeida1994/GatherChain-ARM-Template.svg?style=for-the-badge
+[issues-url]: https://github.com/Jalmeida1994/GatherChain-ARM-Template/issues
+[license-shield]: https://img.shields.io/github/license/Jalmeida1994/GatherChain-ARM-Template.svg?style=for-the-badge
+[license-url]: https://github.com/Jalmeida1994/GatherChain-ARM-Template/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/jo%C3%A3o-almeida-525476125/
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: images/arm-template.png
