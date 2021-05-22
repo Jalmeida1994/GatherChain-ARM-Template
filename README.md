@@ -138,7 +138,7 @@ In this section it'll be shown how to get started with this solution. It is fixe
 
 After the template is deployed to your cloud provider of choice or on premises infraestructure, you should start the blockchain network using the admin commands found in the [GatherChain Admin Commands](https://github.com/Jalmeida1994/GatherChain-AdminCommands).
 
-_For more information, please refer to the [Documentation](https://github.com/Jalmeida1994/GatherChain-AdminCommands/README.md)_
+_For more information, please refer to the [Documentation](https://github.com/Jalmeida1994/GatherChain-AdminCommands/blob/master/README.md)_
 
 
 <!-- USAGE EXAMPLES -->
