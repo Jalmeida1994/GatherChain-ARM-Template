@@ -36,7 +36,7 @@
   <p align="center">
     ARM template of the GatherChain solution.
     <br />
-    <a href="https://github.com/Jalmeida1994/GatherChain-ARM-Template/README.md"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Jalmeida1994/GatherChain-ARM-Template/blob/master/README.md"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/Jalmeida1994/GatherChain-ARM-Template/issues">Report Bug</a>
@@ -114,7 +114,7 @@ In this section it'll be shown how to get started with this solution. It is fixe
 ### Installation
 
 1. Clone the repo
-   ```sh
+   ```
    git clone https://github.com/Jalmeida1994/GatherChain-ARM-Template.git
    ```
 2. Change the parameters in [azuredeploy.parameters.json](https://github.com/Jalmeida1994/GatherChain-ARM-Template/blob/master/azuredeploy.parameters.json) to your needs;
@@ -142,7 +142,7 @@ _For more information, please refer to the [Documentation](https://github.com/Ja
 
 
 <!-- USAGE EXAMPLES -->
-## Cleanup
+### Cleanup
 
 To delete all the resources created use the `az group delete` command
    ```
