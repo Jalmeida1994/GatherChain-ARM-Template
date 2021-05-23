@@ -81,7 +81,7 @@
 [![Product Name Screen Shot][product-screenshot]](images/arm-template.png)
 
 GatherChain is the solution created for my Master Thesis: __Tracing Responsibility in Evolution of Model's Life Cycle in Collaborative Projects in Education__.
-In the paper, it is proposed a blockchain-based solution for version control of model-driven engineering artefacts.  The goal is to facilitate collaboration in a multi-user area,like the education field, and track changes in a trusted and secure manner. This solution is based on using theHyperledger Fabric Networkto govern and regulate file versioncontrol functions among students and teachers.
+In the paper, it is proposed a blockchain-based solution for version control of model-driven engineering artefacts.  The goal is to facilitate collaboration in a multi-user area,like the education field, and track changes in a trusted and secure manner. This solution is based on using the Hyperledger Fabric Network to govern and regulate file version control functions among students and teachers.
 This repository is a part of the larger GatherChain solution.
 
 The other GatherChain projects are:
