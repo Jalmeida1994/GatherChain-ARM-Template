@@ -11,9 +11,6 @@
         "networkSecurityGroupName": {
             "value": "vmthesistest-nsg"
         },
-        "subnetName": {
-            "value": "default"
-        },
         "virtualNetworkName": {
             "value": "rggroup_thesistest-vnet"
         },
@@ -24,6 +21,9 @@
         },
         "publicIPAddressName": {
             "value": "BlocThesisIP"
+        },
+        "subnetName": {
+            "value": "default"
         },
         "subnets": {
             "value": [
@@ -49,9 +49,6 @@
         "virtualMachineName": {
             "value": "vmthesistest"
         },
-        "virtualMachineComputerName": {
-            "value": "vmthesistest"
-        },
         "osDiskType": {
             "value": "StandardSSD_LRS"
         },
@@ -68,25 +65,19 @@
             "value": "gatherchain-app"
         },
         "hostingPlanName": {
-            "value": "ASP-rgthesisbloc-b370"
+            "value": "GatherChainServicePlan"
         },
         "alwaysOn": {
             "value": false
-        },
-        "workerSize": {
-            "value": "0"
-        },
-        "workerSizeId": {
-            "value": "0"
-        },
-        "numberOfWorkers": {
-            "value": "1"
         },
         "sku": {
             "value": "Free"
         },
         "skuCode": {
             "value": "F1"
+        },
+        "autoscaleEnabled": {
+            "value": true
         },
         "cacheName": {
             "value": "gatherchain-cache"
