@@ -78,8 +78,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](images/arm-template.png)
-
 GatherChain is the solution created for my Master Thesis: __Tracing Responsibility in Evolution of Model's Life Cycle in Collaborative Projects in Education__.
 In the paper, it is proposed a blockchain-based solution for version control of model-driven engineering artefacts.  The goal is to facilitate collaboration in a multi-user area,like the education field, and track changes in a trusted and secure manner. This solution is based on using the Hyperledger Fabric Network to govern and regulate file version control functions among students and teachers.
 This repository is a part of the larger GatherChain solution.
@@ -93,6 +91,8 @@ The other GatherChain projects are:
 This repository serves as the Cloud infraestructure for the solution. It was chosen Azure for no particular reason. It can be made with any other Cloud provider or even on premises.
 
 ### Built With
+
+[![Product Name Screen Shot][product-screenshot]](images/arm-template.png)
 
 The infraestructure of the solution is made of different resources. As mentioned in the last section, these resources are platform agnostic. These resources can be found in every major cloud provider and deployed in an on premises environment:
 * [Azure Virtual Machine](https://azure.microsoft.com/en-us/services/virtual-machines/)
