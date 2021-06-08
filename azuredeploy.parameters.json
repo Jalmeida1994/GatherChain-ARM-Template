@@ -71,10 +71,10 @@
             "value": false
         },
         "sku": {
-            "value": "Free"
+            "value": "Standard"
         },
         "skuCode": {
-            "value": "F1"
+            "value": "S1"
         },
         "autoscaleEnabled": {
             "value": true

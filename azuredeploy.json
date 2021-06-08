@@ -106,6 +106,7 @@
             "defaultValue": "Standard",
             "allowedValues": [
                 "Free",
+                "Basic",
                 "Standard",
                 "Premium"
             ],
@@ -122,7 +123,7 @@
         },
         "minimumCapacity": {
             "type": "Int",
-            "defaultValue": 2,
+            "defaultValue": 1,
             "metadata": {
                 "description": "The minimum capacity.  Autoscale engine will ensure the instance count is at least this value."
             }
@@ -136,7 +137,7 @@
         },
         "defaultCapacity": {
             "type": "Int",
-            "defaultValue": 5,
+            "defaultValue": 2,
             "metadata": {
                 "description": "The default capacity.  Autoscale engine will preventively set the instance count to be this value if it can not find any metric data."
             }
@@ -192,7 +193,7 @@
             "type": "string",
             "defaultValue": "gatherchain-cache",
             "metadata": {
-                "description": "New Azure Redis Cache's name. "
+                "description": "New Azure Redis Cache's name."
             }
         },
         "cacheSKUName": {
@@ -226,7 +227,7 @@
             ],
             "defaultValue": 0,
             "metadata": {
-                "description": "The size of the new Azure Redis Cache instance. "
+                "description": "The size of the new Azure Redis Cache instance."
             }
         }
     },
@@ -450,7 +451,9 @@
                 "Enviroment": "DEV",
                 "Project": "Thesis"
             },
-            "properties": {},
+            "properties": {
+                "reserved": true
+            },
             "sku": {
                 "Tier": "[parameters('sku')]",
                 "Name": "[parameters('skuCode')]"
@@ -462,7 +465,7 @@
             "dependsOn": [
                 "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]"
             ],
-            "apiVersion": "2014-04-01",
+            "apiVersion": "2015-04-01",
             "location": "[resourceGroup().location]",
             "properties": {
                 "profiles": [
@@ -478,7 +481,7 @@
                                 "metricTrigger": {
                                     "metricName": "[parameters('metricName')]",
                                     "metricNamespace": "",
-                                    "metricResourceUri": "[resourceGroup().id]",
+                                    "metricResourceUri": "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]",
                                     "timeGrain": "PT5M",
                                     "statistic": "Average",
                                     "timeWindow": "PT10M",
@@ -497,7 +500,7 @@
                                 "metricTrigger": {
                                     "metricName": "[parameters('metricName')]",
                                     "metricNamespace": "",
-                                    "metricResourceUri": "[resourceGroup().id]",
+                                    "metricResourceUri": "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]",
                                     "timeGrain": "PT5M",
                                     "statistic": "Average",
                                     "timeWindow": "PT10M",
@@ -516,7 +519,7 @@
                     }
                 ],
                 "enabled": "[parameters('autoscaleEnabled')]",
-                "targetResourceUri": "[resourceGroup().id]"
+                "targetResourceUri": "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]"
             }
         },
         {
