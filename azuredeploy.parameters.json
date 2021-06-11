@@ -6,13 +6,13 @@
             "value": "northeurope"
         },
         "networkInterfaceName": {
-            "value": "vmthesistest987"
+            "value": "gatherchain-netint"
         },
         "networkSecurityGroupName": {
-            "value": "vmthesistest-nsg"
+            "value": "gatherchain-nsg"
         },
         "virtualNetworkName": {
-            "value": "rggroup_thesistest-vnet"
+            "value": "gatherchain-vnet"
         },
         "addressPrefixes": {
             "value": [
@@ -20,7 +20,7 @@
             ]
         },
         "publicIPAddressName": {
-            "value": "BlocThesisIP"
+            "value": "gatherchain-ip"
         },
         "subnetName": {
             "value": "default"
@@ -47,7 +47,7 @@
             ]
         },
         "virtualMachineName": {
-            "value": "vmthesistest"
+            "value": "gatherchain-vm"
         },
         "osDiskType": {
             "value": "StandardSSD_LRS"
@@ -62,10 +62,10 @@
             "value": "adminPassword2020"
         },
         "appName": {
-            "value": "gatherchain-app"
+            "value": "gatherchain-webapp"
         },
         "hostingPlanName": {
-            "value": "GatherChainServicePlan"
+            "value": "gatherchain-appsvcplan"
         },
         "alwaysOn": {
             "value": false
